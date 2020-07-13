@@ -1,0 +1,69 @@
+<%- include("partials/header") -%>
+<h1>Compose</h1>
+<form action="/compose" method="post">
+    <div class="form-group">
+        <label for="postTitle">Title</label>
+        <input type="text" class="form-control" id="postTitle" name="postTitle"
+        <% if(post){ %>
+               value="<%= post.title%>"
+                <% } %>
+        >
+    </div>
+    <% if(post) { %>
+    <input type="hidden" value="<%= post._id%>" name="postID" >
+    <% } %>
+
+    <div class="form-group">
+        <label for="tags">Tags:</label>
+        <select multiple class="form-control" id="tags" name="tags">
+            <% tags.forEach(function(tag){ %>
+
+                <% if(selected && selected.includes(String(tag._id))){ %>
+
+                    <option value="<%= tag._id %>" selected><%= tag.name %></option>
+                <% } else{ %>
+                    <option value="<%= tag._id %>" ><%= tag.name %></option>
+                <% } %>
+            <% }) %>
+        </select>
+    </div>
+    <textarea name="postContent" id="editor" cols="30" rows="10">
+        <% if (post) { %>
+        <%= post.content %>
+        <% } %>
+    </textarea>
+    <button type="submit" class="btn btn-primary">Publish</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        console.log($('#tags').attr('class'));
+        $('#tags').select2();
+    });
+    tinymce.init({
+        selector: 'textarea#editor',
+        plugins: ' image table lists advlist link code codesample textpattern h1 h2',
+        menubar: false,
+        toolbar: ' undo redo | styleselect h1 h2 | bold Italic |  numlist bullist  | alignleft aligncenter alignright alignjustify |  codesample code  table image link',
+        toolbar_mode: 'floating',
+        height: 300,
+        textpattern_patterns:[
+            {start: '*', end: '*', format: 'italic'},
+            {start: '**', end: '**', format: 'bold'},
+            {start: '__', end: '__', format: 'bold'},
+            {start: '`', end: '`', format: 'code'},
+            {start: '#', format: 'h1'},
+            {start: '##', format: 'h2'},
+            {start: '###', format: 'h3'},
+            {start: '####', format: 'h4'},
+            {start: '#####', format: 'h5'},
+            {start: '######', format: 'h6'},
+            {start: '1. ', cmd: 'InsertOrderedList'},
+            {start: '* ', cmd: 'InsertUnorderedList'},
+            {start: '- ', cmd: 'InsertUnorderedList' }
+        ]
+
+    });
+
+</script>
+<%- include("partials/footer") -%>

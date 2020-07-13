@@ -1,0 +1,19 @@
+<%- include("partials/header") -%>
+<div class="row">
+    <h1><%= post.title %></h1>
+    <a href="/post/<%= post._id %>/edit" style="display: inline">
+        <span class="glyphicon glyphicon-edit"></span>
+    </a>
+    <a href="/post/<%= post._id %>/delete">
+        <span class="glyphicon glyphicon-trash"></span>
+    </a>
+    <% post.tags.forEach(function (tag) { %>
+        <span class="label label-success"><%= tag.name %></span>
+    <% }) %>
+</div>
+<div class="row">
+
+    <p><%- post.content %></p>
+</div>
+
+<%- include("partials/footer") -%>

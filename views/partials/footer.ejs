@@ -1,0 +1,28 @@
+</div>
+
+<% if(typeof(currentPage) != "undefined"){ %>
+    <ul class="pager">
+        <% if(currentPage <= 1){ %>
+            <li class="previous"><a href="" class="disable">Previous</a></li>
+        <% } else { %>
+            <li class="previous"><a href="/<%= parseInt(currentPage) - 1%>">Previous</a></li>
+        <% } %>
+
+        <li><%= currentPage %></li>
+
+        <% if(currentPage >= maxPage){ %>
+            <li class="next"><a href="" class="disable">Next</a></li>
+        <% } else { %>
+            <li class="next"><a href="/<%= parseInt(currentPage) + 1%>">Next</a></li>
+        <% } %>
+
+    </ul>
+<% } %>
+
+<div class="footer-padding"></div>
+<div class="footer">
+    <p>Made with ❤️ by The App Brewery</p>
+</div>
+</div>
+</body>
+</html>
