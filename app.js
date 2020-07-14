@@ -61,7 +61,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 const limit = 5; // 5 posts per page
-app.get("/:page", function (req, res) {
+
+app.get("/", function (req, res) {
+  res.redirect("/page-1");
+});
+
+app.get("/page-:page", function (req, res) {
   const page = req.params.page;
   Post.countDocuments({}, function(err, count){
     if (err) throw err;
@@ -121,7 +126,7 @@ app.post("/compose", function (req, res) {
         tags: selectedTags
       });
       post.save();
-      res.redirect("/1"); // for sync
+      res.redirect("/page-1"); // for sync
     }else{
       Post.update({_id:postID},
           {
@@ -133,7 +138,7 @@ app.post("/compose", function (req, res) {
             if(err){
               throw err;
             }else console.log("updated post");
-            res.redirect("/1");
+            res.redirect("/page-1");
           })
     }
   });
@@ -169,7 +174,7 @@ app.get("/post/:postID/delete", function(req, res){
   const postID = req.params.postID;
   Post.deleteOne({_id: postID}, function (err) {
     if(err) throw err;
-    res.redirect("/1");
+    res.redirect("/page-1");
   })
 });
 
