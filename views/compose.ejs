@@ -1,6 +1,6 @@
 <%- include("partials/header") -%>
 <h1>Compose</h1>
-<form action="/compose" method="post">
+<form action="/compose/user-<%= userID %>" method="post">
     <div class="form-group">
         <label for="postTitle">Title</label>
         <input type="text" class="form-control" id="postTitle" name="postTitle"
